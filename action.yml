@@ -1,0 +1,10 @@
+name: 'Azure PostgreSQL Action'
+description: 'Runs one or more local SQL scripts on a remote server'
+inputs:
+  connection-string:
+    required: true
+  sqlfile:
+    required: true
+runs:
+  using: 'node12'
+  main: 'lib/main.js'
