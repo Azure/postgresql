@@ -2,7 +2,7 @@ import * as core from '@actions/core';
 import * as crypto from 'crypto';
 
 import { AuthorizerFactory } from 'azure-actions-webclient/AuthorizerFactory';
-import PsqlFilesExecutor from './PsqlScriptRunner';
+import PsqlFilesExecutor from './PsqlFilesExecutor';
 import AzurePSQLResourceManager from './Utils/FirewallUtils/ResourceManager';
 import FirewallManager from './Utils/FirewallUtils/FirewallManager';
 import PsqlUtils from './Utils/PsqlUtils/PsqlUtils';
@@ -25,8 +25,8 @@ async function run() {
             firewallManager = new FirewallManager(azurePsqlResourceManager);
             await firewallManager.addFirewallRule(actionInputs.serverName, actionInputs.connectionString);
         }
-        const psqlScriptRunner = new PsqlFilesExecutor(actionInputs.connectionString, actionInputs.filesPath, actionInputs.args);
-        await psqlScriptRunner.execute();
+        const psqlFilesExecutor = new PsqlFilesExecutor(actionInputs.connectionString, actionInputs.filesPath, actionInputs.args);
+        await psqlFilesExecutor.execute();
     }
     catch(error) {
         core.error(`Error occurred while running action:\n${error}`);
