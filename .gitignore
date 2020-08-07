@@ -350,6 +350,3 @@ MigrationBackup/
 .ionide/
 node_modules
 
-src/test.js
-tslint.json
-
