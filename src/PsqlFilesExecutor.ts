@@ -2,11 +2,11 @@ import FileUtils from './Utils/FileUtils';
 import PsqlToolRunner from './Utils/PsqlUtils/PsqlToolRunner';
 
 export default class PsqlFilesExecutor {
+    static psqlFileExecutor: PsqlFilesExecutor;
     connectionString: string;
     plsqlFilePath: string;
     args: string;
     extractedFiles: any;
-    static psqlFileExecutor: PsqlFilesExecutor;
     
     constructor(connectionString: string, filePath: string, args: string) {
         this.connectionString = connectionString;
