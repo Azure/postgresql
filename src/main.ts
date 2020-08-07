@@ -19,8 +19,8 @@ async function run() {
         core.exportVariable('AZURE_HTTP_USER_AGENT', userAgentString);
 
         const actionInputs: ActionInputs = ActionInputs.getActionInputs();
-        if (!await PsqlUtils.canConnectToDB(actionInputs.connectionString)) {
-            console.log(`adding firewall rule`);
+        if (!await PsqlUtils.connectsToDB(actionInputs.connectionString)) {
+            console.log(`Adding firewall rule`);
             const azureResourceAuthorizer = await AuthorizerFactory.getAuthorizer();
             const azurePsqlResourceManager = await AzurePSQLResourceManager.getResourceManager(actionInputs.serverName, azureResourceAuthorizer);
             firewallManager = new FirewallManager(azurePsqlResourceManager);

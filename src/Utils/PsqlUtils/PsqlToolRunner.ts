@@ -18,7 +18,7 @@ export default class PsqlToolRunner {
 
     public static async executePsqlFile(connectionString:string, fileName: string, args: any = {}, options: any = {}) {
         core.debug(`executing psql command for file:\n"${this.psqlPath}" -f ${fileName} ${args} "${connectionString}"`);
-        await exec.exec(`"${PsqlToolRunner.psqlPath}" -f ${fileName} ${args} "${connectionString}"`, [], options);
+        await exec.exec(`"${this.psqlPath}" -f ${fileName} ${args} "${connectionString}"`, [], options);
     }
 
 }
