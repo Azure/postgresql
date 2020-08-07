@@ -18,8 +18,7 @@ export default class PsqlUtils {
         return error;
     }
 
-    // TODO: func name check!!
-    static async isConnectedToDB(connectionString: string): Promise<boolean> {
+    static async canConnectToDB(connectionString: string): Promise<boolean> {
         const error = await this.connectToPostgresDB(connectionString);
         if (error) {
             if (error.match(FirewallConstants.ipv4MatchPattern)) {

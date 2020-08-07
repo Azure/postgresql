@@ -19,13 +19,13 @@ async function run() {
         core.exportVariable('AZURE_HTTP_USER_AGENT', userAgentString);
 
         const actionInputs: ActionInputs = ActionInputs.getActionInputs();
-        if (!await PsqlUtils.isConnectedToDB(actionInputs.connectionString)) {
+        if (!await PsqlUtils.canConnectToDB(actionInputs.connectionString)) {
             const azureResourceAuthorizer = await AuthorizerFactory.getAuthorizer();
             const azurePsqlResourceManager = await AzurePSQLResourceManager.getResourceManager(actionInputs.serverName, azureResourceAuthorizer);
             firewallManager = new FirewallManager(azurePsqlResourceManager);
             await firewallManager.addFirewallRule(actionInputs.serverName, actionInputs.connectionString);
         }
-        const psqlFilesExecutor = new PsqlFilesExecutor(actionInputs.connectionString, actionInputs.filesPath, actionInputs.args);
+        const psqlFilesExecutor = PsqlFilesExecutor.getPsqlFilesExecutor(actionInputs.connectionString, actionInputs.plsqlFile, actionInputs.args)
         await psqlFilesExecutor.execute();
     }
     catch(error) {

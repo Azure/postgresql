@@ -4,6 +4,8 @@ import * as os from 'os';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as winreg from 'winreg';
+import * as semver from 'semver';
+import { SemVer } from 'semver';
 
 export default class PsqlClientFinder {
     static psqlClientPath: string;
@@ -69,7 +71,7 @@ export default class PsqlClientFinder {
             const splitArray = subKey.key.split('-');
             const version = parseFloat(splitArray[splitArray.length - 1]);
 
-            if(version > latestVersion)
+            if(semver.gt(semver.coerce(version), semver.coerce(latestVersion)))
             {
                 latestVersionKey = subKey.key;
                 latestVersion = version;

@@ -15,6 +15,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "semver": "^7.3.2",
     "tslint": "^6.1.2",
     "winreg": "^1.2.4"
   },
