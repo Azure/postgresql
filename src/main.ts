@@ -20,11 +20,13 @@ async function run() {
 
         const actionInputs: ActionInputs = ActionInputs.getActionInputs();
         if (!await PsqlUtils.canConnectToDB(actionInputs.connectionString)) {
+            core.debug(`adding firewall rule`);
             const azureResourceAuthorizer = await AuthorizerFactory.getAuthorizer();
             const azurePsqlResourceManager = await AzurePSQLResourceManager.getResourceManager(actionInputs.serverName, azureResourceAuthorizer);
             firewallManager = new FirewallManager(azurePsqlResourceManager);
             await firewallManager.addFirewallRule(actionInputs.serverName, actionInputs.connectionString);
         }
+        core.debug(`Executing sql files`);
         const psqlFilesExecutor = PsqlFilesExecutor.getPsqlFilesExecutor(actionInputs.connectionString, actionInputs.plsqlFile, actionInputs.args)
         await psqlFilesExecutor.execute();
     }
