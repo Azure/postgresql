@@ -31,9 +31,9 @@ export default class PsqlFilesExecutor {
                 }
             }
         };
+        await PsqlToolRunner.init();
         for(const file of this.extractedFiles) {
             console.log(`Executing file: ${file}`);
-            await PsqlToolRunner.init();
             await PsqlToolRunner.executePsqlFile(this.connectionString, file, this.args, options);
             if (error) {
                 throw new Error(error);
