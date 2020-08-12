@@ -21,8 +21,7 @@ export default class PsqlUtils {
                 stderr: (data: Buffer) => {
                     error += data.toString();
                 }
-            },
-            silent: true
+            }
         };
         // "SELECT 1" psql command is run to check if psql client is able to connect to DB using the connectionString
         await PsqlToolRunner.init();
