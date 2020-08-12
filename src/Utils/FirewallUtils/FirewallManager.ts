@@ -52,5 +52,4 @@ export default class FirewallManager {
         return ipAddress;
     }
 
-
 }
