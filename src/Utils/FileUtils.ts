@@ -4,6 +4,7 @@ import * as core from '@actions/core';
 
 export default class FileUtils {
     public static getFileList(sqlFilesPathRegex: string) {
+        core.debug(`Getting list of files to execute`);
         const basedir: string = process.env.GITHUB_WORKSPACE;
         if (!basedir) {
             throw new Error("GITHUB_WORKSPACE env variable is empty");
