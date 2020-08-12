@@ -10,17 +10,16 @@ export default class FileUtils {
         };
 
         const filesInTargetDir = this.getFilesFromTargetDir(basedir, sqlFilesPathRegex);
-        core.debug(`file list for matching against regex: ${filesInTargetDir}`);
+        core.debug(`File list for matching against regex: ${filesInTargetDir}`);
 
         const fileNameFromRegex: RegExp = new RegExp(this.getFileNameFromRegex(sqlFilesPathRegex));
-        core.debug(`regex to be matched against file names in targetDirectory: ${fileNameFromRegex}`);
+        core.debug(`Regex to match file names in targetDirectory: ${fileNameFromRegex}`);
 
         const listOfMatchedFiles: string[] = [];
         filesInTargetDir.forEach( (file) => {
-            core.debug("File being tested: " + file);
-            if (fileNameFromRegex.test(file) && fs.lstatSync(file).isFile()) {
-                    core.debug("matching regex found: " + file + '\n');
-                    listOfMatchedFiles.push(file);
+            if (fs.lstatSync(file).isFile() && fileNameFromRegex.test(file)) {
+                core.debug(`Matching files found: ${file}`);
+                listOfMatchedFiles.push(file);
             }
         });
         listOfMatchedFiles.sort();
@@ -33,7 +32,7 @@ export default class FileUtils {
         core.debug(`folder path from ${sqlFilesPathRegex} is ${folderPathFromRegex}`);
         
         const targetDirectory = path.join(basedir, folderPathFromRegex);
-        core.debug(`getting list of files from targetDirectory: ${targetDirectory}`);
+        core.debug(`TargetDirectory: ${targetDirectory}`);
         return fs.readdirSync(targetDirectory);
     }
 
