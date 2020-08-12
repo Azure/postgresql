@@ -36,7 +36,7 @@ export default class PsqlFilesExecutor {
             console.log(`Executing file: ${file}`);
             await PsqlToolRunner.executePsqlFile(this.connectionString, file, this.args, options);
             if (error) {
-                throw new Error(error);
+                throw new Error(`error in file: ${file}\n${error}`);
             }
         }
     }

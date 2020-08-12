@@ -31,8 +31,7 @@ async function run() {
         await psqlFilesExecutor.execute();
     }
     catch(error) {
-        core.error(`Error occurred while running action:\n${error}`);
-        core.setFailed(error.message);
+        core.setFailed(`Error occurred while running action:\n${error}`);
     }
     finally {
         if (firewallManager) {
