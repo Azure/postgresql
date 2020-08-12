@@ -3,6 +3,17 @@ import FirewallConstants from "../../Constants/FirewallConstants";
 import PsqlToolRunner from "./PsqlToolRunner";
 
 export default class PsqlUtils {
+    static async connectsToDB(connectionString: string): Promise<boolean> {
+        const error = await this.connectToPostgresDB(connectionString);
+        if (error) {
+            if (error.match(FirewallConstants.ipv4MatchPattern)) {
+                return false;
+            }
+            throw new Error(`Error while running checking psql connectivity: ${error}`);
+        }
+        return true;
+    }
+    
     static async connectToPostgresDB(connectionString: string): Promise<string> {
         let error: string = "";
         const options: any = {
@@ -16,17 +27,6 @@ export default class PsqlUtils {
         await PsqlToolRunner.init();
         await PsqlToolRunner.executePsqlCommand(connectionString, PsqlCommands.SELECT_1, options);
         return error;
-    }
-
-    static async connectsToDB(connectionString: string): Promise<boolean> {
-        const error = await this.connectToPostgresDB(connectionString);
-        if (error) {
-            if (error.match(FirewallConstants.ipv4MatchPattern)) {
-                return false;
-            }
-            throw new Error(`Error while running checking psql connectivity: ${error}`);
-        }
-        return true;
     }
 
 }
