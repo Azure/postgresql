@@ -9,7 +9,7 @@ export default class PsqlUtils {
             if (error.match(FirewallConstants.ipv4MatchPattern)) {
                 return false;
             }
-            throw new Error(`Error while running checking psql connectivity: ${error}`);
+            throw new Error(`Error while checking psql connectivity: ${error}`);
         }
         return true;
     }
