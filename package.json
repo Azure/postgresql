@@ -14,6 +14,7 @@
     "@actions/io": "^1.0.2",
     "azure-actions-webclient": "^1.0.11",
     "crypto": "^1.0.1",
+    "glob": "^7.1.6",
     "semver": "^7.3.2",
     "winreg": "^1.2.4"
   },
@@ -21,6 +22,7 @@
     "tslint": "^6.1.2",
     "@types/node": "^14.0.27",
     "@types/winreg": "^1.2.30",
-    "@types/semver": "^7.3.1"
+    "@types/semver": "^7.3.1",
+    "@types/glob": "^7.1.3"
   }
 }
