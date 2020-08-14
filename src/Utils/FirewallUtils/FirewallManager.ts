@@ -11,8 +11,8 @@ export default class FirewallManager {
         this._resourceManager = azurePsqlResourceManager;
     }
 
-    public async addFirewallRule(serverName: string, connectionString: any): Promise<void> {
-        const ipAddress = await this._detectIPAddress(serverName, connectionString);
+    public async addFirewallRule(connectionString: any): Promise<void> {
+        const ipAddress = await PsqlUtils.detectIPAddress(connectionString);
         if (!ipAddress) {
             core.debug(`Client has access to PSQL server. Skip adding firewall exception.`);
             return;
@@ -33,23 +33,5 @@ export default class FirewallManager {
             core.debug('No firewall exception was added.')
         }
     }
-
-    private async _detectIPAddress(serverName: string, connectionString: any): Promise<string> {
-        core.debug(`Validating if client has access to PSQL Server '${serverName}'.`);
-        let ipAddress = '';
-        const error = await PsqlUtils.connectToPostgresDB(connectionString);
-        if (error) {
-            core.debug(error);
-            const ipAddresses = error.match(FirewallConstants.ipv4MatchPattern);
-            if (ipAddresses) {
-                ipAddress = ipAddresses[0];
-            }
-            else {
-                throw new Error(`Failed to add firewall rule. Unable to detect client IP Address. ${error} ${error}`)
-            }
-        }
-        // ipAddress will be an empty string if client has access to SQL server
-        return ipAddress;
-    }
-
+  
 }

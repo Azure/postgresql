@@ -1,32 +1,34 @@
-import PsqlCommands from "../../Constants/PsqlCommands";
+import PsqlConstants from "../../Constants/PsqlConstants";
 import FirewallConstants from "../../Constants/FirewallConstants";
 import PsqlToolRunner from "./PsqlToolRunner";
 
 export default class PsqlUtils {
-    static async connectsToDB(connectionString: string): Promise<boolean> {
-        const error = await this.connectToPostgresDB(connectionString);
-        if (error) {
-            if (error.match(FirewallConstants.ipv4MatchPattern)) {
-                return false;
-            }
-            throw new Error(`Error while checking psql connectivity: ${error}`);
-        }
-        return true;
-    }
-    
-    static async connectToPostgresDB(connectionString: string): Promise<string> {
-        let error: string = "";
+    static async detectIPAddress(connectionString: string): Promise<string> {
+        let psqlError: string = '';
+        let ipAddress = '';
         const options: any = {
             listeners: {
                 stderr: (data: Buffer) => {
-                    error += data.toString();
+                    psqlError += data.toString();
                 }
-            }
+            }, 
+            silent: true
         };
         // "SELECT 1" psql command is run to check if psql client is able to connect to DB using the connectionString
-        await PsqlToolRunner.init();
-        await PsqlToolRunner.executePsqlCommand(connectionString, PsqlCommands.SELECT_1, options);
-        return error;
+        try {
+            await PsqlToolRunner.init();
+            await PsqlToolRunner.executePsqlCommand(connectionString, PsqlConstants.SELECT_1, options);
+        } catch(err) {
+            if (psqlError) {
+                const ipAddresses = psqlError.match(FirewallConstants.ipv4MatchPattern);
+                if (ipAddresses) {
+                    ipAddress = ipAddresses[0];
+                } else {
+                    throw new Error(`Unable to detect client IP Address: ${psqlError}`);
+                }
+            }
+        }
+        return ipAddress;
     }
 
 }

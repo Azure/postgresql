@@ -1,4 +1,5 @@
 import * as core from '@actions/core';
+import PsqlConstants from '../Constants/PsqlConstants';
 
 export class ActionInputs {
     private static actionInputs: ActionInputs;
@@ -9,9 +10,10 @@ export class ActionInputs {
 
     constructor() {
         this._serverName = core.getInput('server-name', { required: true })
-        this._connectionString = core.getInput('connection-string', { required: true });
+        this._connectionString = core.getInput('connection-string', { required: true }).split("psql")[1].trim();
         this._plsqlFile = core.getInput('plsql-file', { required: true });
         this._args = core.getInput('arguments');
+        this.parseConnectionString();
     }
 
     public static getActionInputs() {
@@ -21,10 +23,14 @@ export class ActionInputs {
         return this.actionInputs;
     }
 
-    public get serverName() {
-        return this._serverName;
+    private parseConnectionString() {
+        const password = this.getPassword();
+        if (!password) {
+            throw new Error(`Password not found in connection string`);
+        }
+        core.setSecret(password);
     }
-
+    
     public get connectionString() {
         return this._connectionString;
     }
@@ -35,6 +41,21 @@ export class ActionInputs {
 
     public get args() {
         return this._args;
+    }
+
+    private getPassword() {
+        let password = '';
+        let matchingGroup = PsqlConstants.extractPasswordRegex.exec(this.connectionString);
+        if (matchingGroup) {
+            for(let match of matchingGroup) {
+                password = match;
+            }
+        }
+        return password;
+    };
+
+    public get serverName() {
+        return this._serverName;
     }
 
 }

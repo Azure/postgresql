@@ -70,7 +70,9 @@ export default class PsqlClientFinder {
             const splitArray = subKey.key.split('-');
             const version = parseFloat(splitArray[splitArray.length - 1]);
 
-            if(semver.gt(semver.coerce(version), semver.coerce(latestVersion)))
+            let _version = semver.coerce(version) || '';
+            let _latestVersion = semver.coerce(latestVersion) || '';
+            if(semver.gt(_version, _latestVersion))
             {
                 latestVersionKey = subKey.key;
                 latestVersion = version;

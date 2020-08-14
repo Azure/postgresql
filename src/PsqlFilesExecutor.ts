@@ -1,5 +1,5 @@
-import FileUtils from './Utils/FileUtils';
 import PsqlToolRunner from './Utils/PsqlUtils/PsqlToolRunner';
+import { FileListCreator } from './FileListCreator/FileListCreator';
 
 export default class PsqlFilesExecutor {
     static psqlFileExecutor: PsqlFilesExecutor;
@@ -12,7 +12,7 @@ export default class PsqlFilesExecutor {
         this.connectionString = connectionString;
         this.plsqlFilePath = filePath;
         this.args = args;
-        this.extractedFiles = FileUtils.getFileList(this.plsqlFilePath);
+        this.extractedFiles = FileListCreator.getFileList(this.plsqlFilePath);
     }
 
     public static getPsqlFilesExecutor(connectionString: string, filePath: string, args: string) {
