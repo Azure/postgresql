@@ -9,7 +9,7 @@ import PsqlUtils from './Utils/PsqlUtils/PsqlUtils';
 import { ActionInputs } from './Utils/ActionInputs';
 
 let firewallManager: FirewallManager;
-async function run() {
+export async function run() {
     const userAgentPrefix = !!process.env.AZURE_HTTP_USER_AGENT ? `${process.env.AZURE_HTTP_USER_AGENT}` : "";
     
     try {
@@ -26,7 +26,7 @@ async function run() {
             const azureResourceAuthorizer = await AuthorizerFactory.getAuthorizer();
             const azurePsqlResourceManager = await AzurePSQLResourceManager.getResourceManager(actionInputs.serverName, azureResourceAuthorizer);
             firewallManager = new FirewallManager(azurePsqlResourceManager);
-            await firewallManager.addFirewallRule(actionInputs.connectionString);
+            await firewallManager.addFirewallRule(runnerIPAddress);
         }
         console.log(`Executing sql files`);
         const psqlFilesExecutor = PsqlFilesExecutor.getPsqlFilesExecutor(actionInputs.connectionString, actionInputs.plsqlFile, actionInputs.args)

@@ -1,5 +1,5 @@
-import { FileListCreator } from "../../src/FileListCreator/FileListCreator";
-import FileConstants from "../../src/Constants/FileConstants";
+import { FileListCreator } from "../../FileListCreator/FileListCreator";
+import  {FileConstants } from "../../Constants";
 
 const singleFile = "1.sql";
 const multipleFiles = "*.sql";

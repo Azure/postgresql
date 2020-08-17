@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import PsqlConstants from '../Constants/PsqlConstants';
+import { PsqlConstants } from '../Constants';
 
 export class ActionInputs {
     private static actionInputs: ActionInputs;
@@ -9,7 +9,8 @@ export class ActionInputs {
     private _args: string;
 
     constructor() {
-        this._serverName = core.getInput('server-name', { required: true })
+        this._serverName = core.getInput('server-name', { required: true });
+        console.log(`this.servername: ${this._serverName}`)
         this._connectionString = core.getInput('connection-string', { required: true }).split("psql")[1].trim();
         this._plsqlFile = core.getInput('plsql-file', { required: true });
         this._args = core.getInput('arguments');

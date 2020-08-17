@@ -1,5 +1,5 @@
-import PsqlConstants from "../../Constants/PsqlConstants";
-import FirewallConstants from "../../Constants/FirewallConstants";
+import { PsqlConstants } from "../../Constants";
+import { FirewallConstants } from "../../Constants";
 import PsqlToolRunner from "./PsqlToolRunner";
 
 export default class PsqlUtils {

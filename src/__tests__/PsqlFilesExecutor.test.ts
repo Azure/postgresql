@@ -1,7 +1,7 @@
-import PsqlFilesExecutor from "../src/PsqlFilesExecutor";
+import PsqlFilesExecutor from "../PsqlFilesExecutor";
 
-jest.mock('../src/Utils/PsqlUtils/PsqlToolRunner');
-jest.mock('../src/FileListCreator/FileListCreator');
+jest.mock('../Utils/PsqlUtils/PsqlToolRunner');
+jest.mock('../FileListCreator/FileListCreator');
 
 let psqlFilesExecutor: PsqlFilesExecutor;
 

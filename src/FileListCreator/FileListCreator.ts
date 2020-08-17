@@ -1,5 +1,5 @@
 import SingleParentDir from "./SingleParentDir";
-import FileConstants from "../Constants/FileConstants";
+import { FileConstants } from "../Constants";
 
 export interface FileList {
     filePathRegex: string;

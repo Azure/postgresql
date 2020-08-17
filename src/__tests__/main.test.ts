@@ -1,17 +1,17 @@
-import { run } from "../src/main";
-import { ActionInputs } from "../src/Utils/ActionInputs";
-import PsqlUtils from "../src/Utils/PsqlUtils/PsqlUtils";
+import { run } from "../main";
+import { ActionInputs } from "../Utils/ActionInputs";
+import PsqlUtils from "../Utils/PsqlUtils/PsqlUtils";
 import { AuthorizerFactory } from "azure-actions-webclient/AuthorizerFactory";
-import AzurePSQLResourceManager from "../src/Utils/FirewallUtils/ResourceManager";
-import FirewallManager from "../src/Utils/FirewallUtils/FirewallManager";
-import PsqlFilesExecutor from "../src/PsqlFilesExecutor";
+import AzurePSQLResourceManager from "../Utils/FirewallUtils/ResourceManager";
+import FirewallManager from "../Utils/FirewallUtils/FirewallManager";
+import PsqlFilesExecutor from "../PsqlFilesExecutor";
 
 jest.mock('@actions/core');
-jest.mock('../src/Utils/PsqlUtils/PsqlToolRunner');
-jest.mock('../src/FileListCreator/FileListCreator');
+jest.mock('../Utils/PsqlUtils/PsqlToolRunner');
+jest.mock('../FileListCreator/FileListCreator');
 jest.mock('azure-actions-webclient/AuthorizerFactory');
-jest.mock('../src/Utils/FirewallUtils/ResourceManager');
-jest.mock('../src/Utils/FirewallUtils/FirewallManager');
+jest.mock('../Utils/FirewallUtils/ResourceManager');
+jest.mock('../Utils/FirewallUtils/FirewallManager');
 
 describe('Testing main', () => {
     afterEach(() => {

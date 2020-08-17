@@ -1,6 +1,5 @@
 import * as core from '@actions/core';
 import AzurePSQLResourceManager from './ResourceManager';
-import FirewallConstants from '../../Constants/FirewallConstants';
 import PsqlUtils from '../PsqlUtils/PsqlUtils';
 
 export default class FirewallManager {
@@ -10,9 +9,12 @@ export default class FirewallManager {
     constructor(azurePsqlResourceManager: AzurePSQLResourceManager) {
         this._resourceManager = azurePsqlResourceManager;
     }
+    
+    public get resourceManager() {
+        return this._resourceManager;
+    }
 
-    public async addFirewallRule(connectionString: any): Promise<void> {
-        const ipAddress = await PsqlUtils.detectIPAddress(connectionString);
+    public async addFirewallRule(ipAddress: string): Promise<void> {
         if (!ipAddress) {
             core.debug(`Client has access to PSQL server. Skip adding firewall exception.`);
             return;

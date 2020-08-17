@@ -1,7 +1,7 @@
-import PsqlUtils from "../../src/Utils/PsqlUtils/PsqlUtils";
-import FirewallConstants from "../../src/Constants/FirewallConstants";
+import PsqlUtils from "../../Utils/PsqlUtils/PsqlUtils";
+import { FirewallConstants } from "../../Constants";
 
-jest.mock('../../src/Utils/PsqlUtils/PsqlToolRunner');
+jest.mock('../../Utils/PsqlUtils/PsqlToolRunner');
 const CONFIGURED = "configured";
 
 describe('Testing PsqlUtils', () => {
