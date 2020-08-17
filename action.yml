@@ -1,0 +1,20 @@
+# postgresql action
+name: 'Azure PostgreSQL Action'
+description: 'Deploy to Azure PostgreSQL database using SQL script files'
+inputs:
+  #Only Azure PostgreSQL Server detail is required
+  server-name:
+    description: 'Server name of Azure DB for PostgreSQL. Example: fabrikam.postgres.database.azure.com'
+    required: true
+  connection-string:
+    description: 'The connection string, including authentication information, for the Azure PostgreSQL Server. Please provide psql connection string. Example: psql "host={host} port={port} dbname={your_database} user={user} password={your_password} sslmode=require"'
+    required: true
+  plsql-file:
+    description: 'Path to PL/SQL script file to deploy. To specify multiple files, use the regex syntax : *.sql or folder/x/<regex>.sql'
+    required: true
+  arguments:
+    description: 'Additional options supported by postgresql simple SQL shell. These options will be applied when executing the given file on the Azure DB for Postgresql. In case of multiple files, the same args will be applied for all files'
+    required: false
+runs:
+  using: 'node12'
+  main: 'lib/main.js'
