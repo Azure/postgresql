@@ -24,4 +24,5 @@ describe('Testing PsqlFilesExecutor', () => {
         await psqlFilesExecutor.execute();
         expect(executeSpy).toHaveBeenCalled();
     });
+    
 });

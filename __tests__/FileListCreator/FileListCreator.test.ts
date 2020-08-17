@@ -1,4 +1,4 @@
-import { FileListCreator, FileList } from "../../src/FileListCreator/FileListCreator";
+import { FileListCreator } from "../../src/FileListCreator/FileListCreator";
 import FileConstants from "../../src/Constants/FileConstants";
 
 const singleFile = "1.sql";

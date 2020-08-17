@@ -13,8 +13,6 @@ jest.mock('azure-actions-webclient/AuthorizerFactory');
 jest.mock('../src/Utils/FirewallUtils/ResourceManager');
 jest.mock('../src/Utils/FirewallUtils/FirewallManager');
 
-
-
 describe('Testing main', () => {
     afterEach(() => {
         jest.clearAllMocks()
