@@ -14,7 +14,7 @@ afterEach(() => {
 });
 
 describe('Testing PsqlFilesExecutor', () => {
-    let executeSpy;
+    let executeSpy: any;
     beforeEach(() => {
         executeSpy = jest.spyOn(psqlFilesExecutor, 'execute');
     });

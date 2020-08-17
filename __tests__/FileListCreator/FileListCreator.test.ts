@@ -1,4 +1,4 @@
-import { FileListCreator } from "../../src/FileListCreator/FileListCreator";
+import { FileListCreator, FileList } from "../../src/FileListCreator/FileListCreator";
 import FileConstants from "../../src/Constants/FileConstants";
 
 const singleFile = "1.sql";
@@ -7,11 +7,11 @@ const filesInsideFolder = "x/y/*_db.sql";
 const regexToFail = "x/*/";
 
 describe('Testing fileListCreator', () => {
-    let getFileListSpy;
+    let getFileListSpy: any;
     
     beforeAll( () => {
         getFileListSpy = jest.spyOn(FileListCreator, 'getFileList');
-        getFileListSpy.mockImplementation((filePathRegex) => {
+        getFileListSpy.mockImplementation((filePathRegex: string) => {
             let matchesFilePath = false;
             if (FileConstants.singleParentDirRegex.test(filePathRegex)) {
                 matchesFilePath = true;
