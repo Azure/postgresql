@@ -18,13 +18,13 @@ describe('Testing main', () => {
         jest.clearAllMocks()
     });
 
-    let getAuthorizerSpy;
-    let getResourceManagerSpy;
-    let addFirewallRuleSpy;
-    let removeFirewallRuleSpy;
-    let getActionInputsSpy;
-    let detectIPAddressSpy;
-    let executeSpy;
+    let getAuthorizerSpy : any;
+    let getResourceManagerSpy: any;
+    let addFirewallRuleSpy: any;
+    let removeFirewallRuleSpy: any;
+    let getActionInputsSpy: any;
+    let detectIPAddressSpy: any;
+    let executeSpy: any;
 
     beforeAll(() => {
         getAuthorizerSpy = jest.spyOn(AuthorizerFactory, 'getAuthorizer');

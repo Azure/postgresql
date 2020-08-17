@@ -27,7 +27,7 @@ export default class SingleParentDir implements FileList {
         core.debug(`Matching list of files: ${listOfMatchedFiles}`);
 
         listOfMatchedFiles.sort();
-        listOfMatchedFiles = listOfMatchedFiles.map( (fileName) => path.join(basedir, fileName) );
+        listOfMatchedFiles = listOfMatchedFiles.map( (fileName: string) => path.join(basedir, fileName) );
         console.log("List of files to be executed in order: " + listOfMatchedFiles);
         return listOfMatchedFiles;
     }
