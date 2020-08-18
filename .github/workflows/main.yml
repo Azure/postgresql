@@ -12,10 +12,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2.3.2
       
-    - name: Azure login
-      uses: Azure/login@v1
-      with:
-        creds: ${{secrets.AZURE_CREDENTIALS}}
+#     - name: Azure login
+#       uses: Azure/login@v1
+#       with:
+#         creds: ${{secrets.AZURE_CREDENTIALS}}
       
     - name: running postgresql action
       uses: aksm-ms/postgresql-action@master
