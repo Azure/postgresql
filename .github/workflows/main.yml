@@ -1,0 +1,17 @@
+name: CI
+on:
+  push:
+    paths:
+      - '.github/workflows/main.yml'
+    
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 'running postgresql action'
+      uses: aksm-ms/postgresql-action@master
+      with:
+        connection-string: 'psql "host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require"'
+        server-name: "ak-db.postgres.database.azure.com"
+        plsql-file: "1.sql"
