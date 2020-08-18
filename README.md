@@ -15,7 +15,7 @@ The definition of this Github Action is in [action.yml](https://github.com/Azure
 # End-to-End Sample Workflow
 
 ## Running for multiple SQL scripts
-Using Azure PostgreSQL action, either a single SQL script/multiple SQL scripts from a single parent folder can be run. Following are the sample values which can be used in plsql-file input:
+Using [Azure PostgreSQL action](https://github.com/Azure/postgresql-action), either a single SQL script/multiple SQL scripts from a single parent folder can be run. Following are the sample values which can be used in plsql-file input:
 
 filename.sql
 *.sql
