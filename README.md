@@ -33,7 +33,7 @@ Alternatively, if enough permissions are not granted on the service principal or
 
 * Configuring firewall rules before running the action
 
-If firewall rules are already added in Azure database for PostgreSQL, [Azure Login](https://github.com/Azure/login) action is not required in the workflow and action will proceed to execute the SQL scripts.
+If firewall rules are already added in Azure database for PostgreSQL, [Azure Login](https://github.com/Azure/login) action is not required in the workflow and postgresql-action will proceed to execute the SQL scripts.
 
 For Github hosted runners which are usually Azure VMs, users could handle the firewall rules by enabling the option on the PostgreSQL DB in Azure portal to allow any Azure VMs in the tenant to have access to the DB.
 
