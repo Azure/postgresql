@@ -10,7 +10,7 @@ export class ActionInputs {
 
     constructor() {
         this._serverName = core.getInput('server-name', { required: true });
-        this._connectionString = core.getInput('connection-string', { required: true }).split("psql")[1].trim();
+        this._connectionString = core.getInput('connection-string', { required: true });
         this._plsqlFile = core.getInput('plsql-file', { required: true });
         this._args = core.getInput('arguments');
         this.parseConnectionString();
@@ -24,11 +24,19 @@ export class ActionInputs {
     }
 
     private parseConnectionString() {
+        this._connectionString = this._connectionString.replace('psql', "").replace(/["]+/g, '').trim();
+        if (!this.validateConnectionString()) {
+            throw new Error(`Please provide a valid connection string`);
+        }
         const password = this.getPassword();
         if (!password) {
             throw new Error(`Password not found in connection string`);
         }
         core.setSecret(password);
+    }
+
+    private validateConnectionString(): boolean {
+        return PsqlConstants.connectionStringRegex.test(this.connectionString);
     }
     
     public get connectionString() {
