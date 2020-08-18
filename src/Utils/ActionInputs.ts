@@ -10,7 +10,6 @@ export class ActionInputs {
 
     constructor() {
         this._serverName = core.getInput('server-name', { required: true });
-        console.log(`this.servername: ${this._serverName}`)
         this._connectionString = core.getInput('connection-string', { required: true }).split("psql")[1].trim();
         this._plsqlFile = core.getInput('plsql-file', { required: true });
         this._args = core.getInput('arguments');
