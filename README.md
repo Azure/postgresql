@@ -15,13 +15,8 @@ The definition of this Github Action is in [action.yml](https://github.com/Azure
 # End-to-End Sample Workflow
 
 ## Running for multiple SQL scripts
-Using [Azure PostgreSQL action](https://github.com/Azure/postgresql-action), either a single SQL script/multiple SQL scripts from a single parent folder can be run. Following are the sample values which can be used in plsql-file input:
+Using [Azure PostgreSQL action](https://github.com/Azure/postgresql-action), either a single SQL script/multiple SQL scripts from a single parent folder can be run. Following are the sample values which can be used in plsql-file input: filename.sql, *.sql, folder1/folder2/*.sql, folder1/<any regex>.sql
 
-filename.sql
-*.sql
-folder1/folder2/*.sql
-folder1/<any regex>.sql
-  
 In case of multiple files, filenames are ordered lexicographically and run in order. Additional arguments provided for PSQL shell will be applied to all the files.
 
 ## Dependencies on other Github Actions
