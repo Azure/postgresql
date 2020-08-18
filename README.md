@@ -72,7 +72,7 @@ Follow the steps to configure the secret:
   
 ```
 
-Also copy the psql connection string from Azure PostgreSQL which is under **Connection strings** > **psql** of the format:
+Also, copy the psql connection string from Azure PostgreSQL DB which is under **Connection strings** > **psql** and of the format:
 psql "host={hostname} port={port} dbname={your_database} user={user} password={your_password} sslmode=require"
 
 ### Sample workflow to deploy to an Azure database for PostgreSQL server using Azure Login
