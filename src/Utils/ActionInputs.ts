@@ -36,7 +36,7 @@ export class ActionInputs {
     }
 
     private validateConnectionString(): boolean {
-        return PsqlConstants.connectionStringRegex.test(this.connectionString);
+        return PsqlConstants.connectionStringTestRegex.test(this.connectionString);
     }
     
     public get connectionString() {

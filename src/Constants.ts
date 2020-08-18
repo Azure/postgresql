@@ -8,6 +8,6 @@ export class FirewallConstants {
 
 export class PsqlConstants {
     static readonly SELECT_1 = "SELECT 1";
-    static readonly connectionStringRegex = /^.*host=.+port=.+dbname=.+user=.+password=.+.*$/g;
+    static readonly connectionStringTestRegex = /^(?=.*host=.+)(?=.*port=.+)(?=.*dbname=.+)(?=.*user=.+)(?=.*password=.+).+/g;
     static readonly extractPasswordRegex = /(?<key>password)=(?<val>[^\s]*)/g;
 }
