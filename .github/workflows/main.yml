@@ -21,10 +21,10 @@ jobs:
       uses: aksm-ms/postgresql-action@master
       with:
 #         connection-string: 'psql host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require'
-#         connection-string: ${{secrets.CONN_STRING}}
-        connection-string: "xuneggergerE"
+        connection-string: ${{secrets.CONN_STRING}}
         server-name: "ak-db.postgres.database.azure.com"
 #         plsql-file: "./sql_files/x/*.sql"
 #         plsql-file: "sql_files/*_db.sql"
         plsql-file: "1.sql"
+        arguments: '-c "SELECT 99"'
     
