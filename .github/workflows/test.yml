@@ -6,21 +6,16 @@ on:
       - '.github/workflows/test.yml'
 
 jobs:
-  build:
-#     runs-on: windows-latest
-    runs-on: ${{ matrix.os }}
-    strategy:
-        matrix:
-          os: [windows-latest, ubuntu-latest, macos-latest]
+  ubuntu:
+    runs-on: ubuntu-latest
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#         matrix:
+#           os: [windows-latest, ubuntu-latest, macos-latest]
     
     steps:
     - uses: actions/checkout@v2
     
-    - name: Azure login
-      uses: Azure/login@v1
-      with:
-        creds: ${{secrets.AZURE_CREDENTIALS}}
-
     - name: 'running postgresql action'
       uses: aksm-ms/postgresql-action@master
       with:
@@ -28,6 +23,32 @@ jobs:
         server-name: "ak-db.postgres.database.azure.com"
         plsql-file: "1000-lines.sql"
 #         plsql-file: "temp.sql"
+
+  macos:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: 'running postgresql action'
+      uses: aksm-ms/postgresql-action@master
+      with:
+        connection-string: 'psql host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require'
+        server-name: "ak-db.postgres.database.azure.com"
+        plsql-file: "1000-lines.sql"
+        
+  windows:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: 'running postgresql action'
+      uses: aksm-ms/postgresql-action@master
+      with:
+        connection-string: 'psql host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require'
+        server-name: "ak-db.postgres.database.azure.com"
+        plsql-file: "1000-lines.sql"
       
     
       
