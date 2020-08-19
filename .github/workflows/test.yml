@@ -35,7 +35,7 @@ jobs:
       with:
         connection-string: 'psql host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require'
         server-name: "ak-db.postgres.database.azure.com"
-        plsql-file: "1000-lines.sql"
+        plsql-file: "10000-lines.sql"
         
   windows:
     runs-on: windows-latest
@@ -48,7 +48,7 @@ jobs:
       with:
         connection-string: 'psql host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require'
         server-name: "ak-db.postgres.database.azure.com"
-        plsql-file: "1000-lines.sql"
+        plsql-file: "10000-lines.sql"
       
     
       
