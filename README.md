@@ -41,7 +41,7 @@ For self-hosted runners, firewall rules need to be explicitly managed by user us
 
 ## Create an Azure database for PostgreSQL server and deploy using GitHub Actions
 1. Follow the tutorial [Azure Database for PostgreSQL server Quickstart](https://docs.microsoft.com/en-us/azure/postgresql/quickstart-create-server-database-portal)
-2. Copy the PostgreSQL-on-Azure.yml template from [starter templates](https://github.com/Azure/actions-workflow-samples/blob/aksm-ms/postgres-workflow/Database/PostgreSQL-on-Azure.yml) and paste the template contents into `.github/workflows/` within your project repository as workflow.yml.
+2. Copy the PostgreSQL-on-Azure.yml template from [starter templates](https://github.com/Azure/actions-workflow-samples/blob/master/Database/PostgreSQL-on-Azure.yml) and paste the template contents into `.github/workflows/` within your project repository as workflow.yml.
 3. Change `server-name` to your Azure PostgreSQL Server name.
 4. Commit and push your project to GitHub repository, you should see a new GitHub Action initiated in **Actions** tab.
 
