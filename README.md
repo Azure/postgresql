@@ -51,6 +51,8 @@ For using any sensitive data/secrets like Azure Service Principal or PostgreSQL 
 Follow the steps to configure the secret:
   * Define a new secret under your repository **Settings** > **Secrets** > **Add a new secret** menu.
   * Paste the contents of the Secret (Example: Connection String) as Value
+  * Also, copy the psql connection string from Azure PostgreSQL DB which is under **Connection strings** > **psql** and of the format:
+psql "host={hostname} port={port} dbname={your_database} user={user} password={your_password} sslmode=require"
   * For Azure credentials, paste the output of the below [az cli](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest) command as the value of secret variable, for example 'AZURE_CREDENTIALS'
 ```bash  
 
@@ -71,9 +73,6 @@ Follow the steps to configure the secret:
   }
   
 ```
-
-Also, copy the psql connection string from Azure PostgreSQL DB which is under **Connection strings** > **psql** and of the format:
-psql "host={hostname} port={port} dbname={your_database} user={user} password={your_password} sslmode=require"
 
 ### Sample workflow to deploy to an Azure database for PostgreSQL server using Azure Login
 
