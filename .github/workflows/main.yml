@@ -24,7 +24,7 @@ jobs:
         connection-string: ${{secrets.CONN_STRING}}
         server-name: "ak-db.postgres.database.azure.com"
 #         plsql-file: "./sql_files/x/*.sql"
-        plsql-file: "sql_files/y/*.sql"
+        plsql-file: "sql_files/foo/bar/*.sql"
 #         plsql-file: "1.xyz"
 #         arguments: '-c "SELECT 99"'
     
