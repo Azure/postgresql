@@ -6,8 +6,8 @@ on:
       - '.github/workflows/test.yml'
 
 jobs:
-  ubuntu:
-    runs-on: macos-latest
+  windows:
+    runs-on: windows-latest
 #     runs-on: ${{ matrix.os }}
 #     strategy:
 #         matrix:
