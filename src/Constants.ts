@@ -1,5 +1,5 @@
 export class FileConstants {
-    static readonly singleParentDirRegex = /.*(\.sql){1}$/g;
+    static readonly singleParentDirRegex = /^((?!\*\/).)*(\.sql)$/g;
 }
 
 export class FirewallConstants {
