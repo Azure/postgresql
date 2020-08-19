@@ -7,7 +7,7 @@ on:
 
 jobs:
   ubuntu:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 #     runs-on: ${{ matrix.os }}
 #     strategy:
 #         matrix:
@@ -24,31 +24,31 @@ jobs:
         plsql-file: "10000-lines.sql"
 #         plsql-file: "temp.sql"
 
-  macos:
-    runs-on: macos-latest
+#   macos:
+#     runs-on: macos-latest
     
-    steps:
-    - uses: actions/checkout@v2
+#     steps:
+#     - uses: actions/checkout@v2
     
-    - name: 'running postgresql action'
-      uses: aksm-ms/postgresql-action@master
-      with:
-        connection-string: 'psql host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require'
-        server-name: "ak-db.postgres.database.azure.com"
-        plsql-file: "10000-lines.sql"
+#     - name: 'running postgresql action'
+#       uses: aksm-ms/postgresql-action@master
+#       with:
+#         connection-string: 'psql host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require'
+#         server-name: "ak-db.postgres.database.azure.com"
+#         plsql-file: "10000-lines.sql"
         
-  windows:
-    runs-on: windows-latest
+#   windows:
+#     runs-on: windows-latest
     
-    steps:
-    - uses: actions/checkout@v2
+#     steps:
+#     - uses: actions/checkout@v2
     
-    - name: 'running postgresql action'
-      uses: aksm-ms/postgresql-action@master
-      with:
-        connection-string: 'psql host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require'
-        server-name: "ak-db.postgres.database.azure.com"
-        plsql-file: "10000-lines.sql"
+#     - name: 'running postgresql action'
+#       uses: aksm-ms/postgresql-action@master
+#       with:
+#         connection-string: 'psql host=ak-db.postgres.database.azure.com port=5432 dbname=postgres user=aksm@ak-db password=Mads.handyvs!2 sslmode=require'
+#         server-name: "ak-db.postgres.database.azure.com"
+#         plsql-file: "10000-lines.sql"
       
     
       
