@@ -39,6 +39,17 @@ export class ActionInputs {
         return PsqlConstants.connectionStringTestRegex.test(this.connectionString);
     }
     
+    private getPassword() {
+        let password = '';
+        let matchingGroup = PsqlConstants.extractPasswordRegex.exec(this.connectionString);
+        if (matchingGroup) {
+            for(let match of matchingGroup) {
+                password = match;
+            }
+        }
+        return password;
+    };
+    
     public get connectionString() {
         return this._connectionString;
     }
@@ -50,17 +61,6 @@ export class ActionInputs {
     public get args() {
         return this._args;
     }
-
-    private getPassword() {
-        let password = '';
-        let matchingGroup = PsqlConstants.extractPasswordRegex.exec(this.connectionString);
-        if (matchingGroup) {
-            for(let match of matchingGroup) {
-                password = match;
-            }
-        }
-        return password;
-    };
 
     public get serverName() {
         return this._serverName;
