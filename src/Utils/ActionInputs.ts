@@ -10,8 +10,7 @@ export class ActionInputs {
 
     constructor() {
         this._serverName = core.getInput('server-name', { required: true });
-        console.log(`this.servername: ${this._serverName}`)
-        this._connectionString = core.getInput('connection-string', { required: true }).split("psql")[1].trim();
+        this._connectionString = core.getInput('connection-string', { required: true });
         this._plsqlFile = core.getInput('plsql-file', { required: true });
         this._args = core.getInput('arguments');
         this.parseConnectionString();
@@ -25,12 +24,31 @@ export class ActionInputs {
     }
 
     private parseConnectionString() {
+        this._connectionString = this._connectionString.replace('psql', "").replace(/["]+/g, '').trim();
+        if (!this.validateConnectionString()) {
+            throw new Error(`Please provide a valid connection string. A valid connection string is a series of keyword/value pairs separated by space. Spaces around the equal sign are optional. To write an empty value, or a value containing spaces, surround it with single quotes, e.g., keyword = 'a value'. Single quotes and backslashes within the value must be escaped with a backslash`);
+        }
         const password = this.getPassword();
         if (!password) {
             throw new Error(`Password not found in connection string`);
         }
         core.setSecret(password);
     }
+
+    private validateConnectionString(): boolean {
+        return PsqlConstants.connectionStringTestRegex.test(this.connectionString);
+    }
+    
+    private getPassword() {
+        let password = '';
+        let matchingGroup = PsqlConstants.extractPasswordRegex.exec(this.connectionString);
+        if (matchingGroup) {
+            for(let match of matchingGroup) {
+                password = match;
+            }
+        }
+        return password;
+    };
     
     public get connectionString() {
         return this._connectionString;
@@ -43,17 +61,6 @@ export class ActionInputs {
     public get args() {
         return this._args;
     }
-
-    private getPassword() {
-        let password = '';
-        let matchingGroup = PsqlConstants.extractPasswordRegex.exec(this.connectionString);
-        if (matchingGroup) {
-            for(let match of matchingGroup) {
-                password = match;
-            }
-        }
-        return password;
-    };
 
     public get serverName() {
         return this._serverName;

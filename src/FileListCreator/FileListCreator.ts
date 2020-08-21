@@ -14,6 +14,9 @@ export class FileListCreator {
             const singleParentDir = new SingleParentDir(filePathRegex);
             this.fileList = singleParentDir.getFileList();
         }
+        if(!this.fileList) {
+            throw new Error(`Invalid file path. File path should be of the format <file>.sql, <folder>/<regex>.sql, <folder1>/<folder2>/<folder3>/<regex>.sql`);
+        }
         return this.fileList;
     }
 

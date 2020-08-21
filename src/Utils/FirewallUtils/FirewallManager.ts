@@ -1,6 +1,5 @@
 import * as core from '@actions/core';
 import AzurePSQLResourceManager from './ResourceManager';
-import PsqlUtils from '../PsqlUtils/PsqlUtils';
 
 export default class FirewallManager {
     private _firewallRule: any;
