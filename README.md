@@ -1,12 +1,12 @@
 # GitHub Action for deploying updates to Azure Database for PostgreSQL server
 
-With the Azure PostgreSQL Action for GitHub, you can automate your workflow to deploy updates to [Azure Database for PostgreSQL server](https://azure.microsoft.com/en-in/services/postgresql/). You can run a single SQL file or multiple sql files from a single parent folder against your Azure Database for PostgreSQL server. 
+With the Azure PostgreSQL Action for GitHub, you can automate your workflow to deploy updates to [Azure Database for PostgreSQL server](https://azure.microsoft.com/en-in/services/postgresql/). You can run a single PL/SQL file or multiple sql files from a single parent folder against your Azure Database for PostgreSQL server. 
 
 Get started today with a [free Azure account](https://azure.com/free/open-source)!
 
 This repository contains GitHub Action for [Azure database for PostgreSQL server](https://github.com/Azure/postgresql-action) to deploy . 
 
-The action uses Connection String for authentication and SQL scripts to deploy to your PostgreSQL database.
+The action uses Connection String for authentication and PL/SQL scripts to deploy to your PostgreSQL database.
 
 If you are looking for more Github Actions to deploy code or a customized image into an Azure Webapp or a Kubernetes service, consider using [Azure Actions](https://github.com/Azure/actions).
 
@@ -14,10 +14,11 @@ The definition of this Github Action is in [action.yml](https://github.com/Azure
 
 # End-to-End Sample Workflow
 
-## Running for multiple SQL scripts
-Using [Azure PostgreSQL action](https://github.com/Azure/postgresql-action), either a single SQL script/multiple SQL scripts from a single parent folder can be run. Following are the sample values which can be used in plsql-file input: filename.sql, *.sql, folder1/folder2/*.sql, folder1/<any regex>.sql
-
-In case of multiple files, filenames are ordered lexicographically and run in order. Additional arguments provided for PSQL shell will be applied to all the files.
+## Running multiple PL/SQL scripts
+- Using [Azure PostgreSQL action](https://github.com/Azure/postgresql-action), either a single/multiple PL/SQL SQL script(s) from a single parent folder can be run. 
+- Following sample values can be used in plsql-file input: filename.sql, *.sql, folder1/folder2/*.sql, folder1/<any regex>.sql
+- In case of multiple files, filenames are ordered lexicographically and run in order. 
+- Additional arguments provided for PSQL shell will be applied to all the files.
 
 ## Dependencies on other Github Actions
 
@@ -33,11 +34,9 @@ Alternatively, if enough permissions are not granted on the service principal or
 
 * Configuring firewall rules before running the action
 
-If firewall rules are already added in Azure database for PostgreSQL, [Azure Login](https://github.com/Azure/login) action is not required in the workflow and postgresql-action will proceed to execute the SQL scripts.
-
-For Github hosted runners which are usually Azure VMs, users could handle the firewall rules by enabling the option on the PostgreSQL DB in Azure portal to allow any Azure VMs in the tenant to have access to the DB.
-
-For self-hosted runners, firewall rules need to be explicitly managed by user using CLI/PS scripts.
+- If firewall rules are already added in Azure database for PostgreSQL, [Azure Login](https://github.com/Azure/login) action is not required in the workflow and postgresql-action will proceed to execute the SQL scripts.
+- For Github hosted runners which are usually Azure VMs, users could handle the firewall rules by enabling the option on the PostgreSQL DB in Azure portal to allow any Azure VMs in the tenant to have access to the DB.
+- For self-hosted runners, firewall rules need to be explicitly managed by user using CLI/PS scripts.
 
 ## Create an Azure database for PostgreSQL server and deploy using GitHub Actions
 1. Follow the tutorial [Azure Database for PostgreSQL server Quickstart](https://docs.microsoft.com/en-us/azure/postgresql/quickstart-create-server-database-portal)
