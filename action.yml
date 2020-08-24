@@ -1,6 +1,6 @@
 # postgresql action
 name: 'Azure PostgreSQL Action'
-description: 'Deploy to Azure PostgreSQL database using SQL script files'
+description: 'Deploy to Azure PostgreSQL database using PL/SQL script files'
 inputs:
   server-name:
     description: 'Server name of Azure DB for PostgreSQL. Example: fabrikam.postgres.database.azure.com'
