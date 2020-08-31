@@ -88,7 +88,7 @@ jobs:
      - uses: Azure/login@v1
        with:
          creds: ${{secrets.AZURE_CREDENTIALS}}
-     - uses: azure/postgresql-action@v1
+     - uses: azure/postgresql@v1
       with:
         connection-string: ${{ secrets.AZURE_POSTGRESQL_CONNECTION_STRING }}
         server-name: REPLACE_THIS_WITH_YOUR_POSTGRESQL_SERVER_NAME
@@ -106,7 +106,7 @@ jobs:
     
     steps:
      - uses: actions/checkout@v2.3.2
-     - uses: azure/postgresql-action@v1
+     - uses: azure/postgresql@v1
       with:
         connection-string: ${{ secrets.AZURE_POSTGRESQL_CONNECTION_STRING }}
         server-name: REPLACE_THIS_WITH_YOUR_POSTGRESQL_SERVER_NAME
