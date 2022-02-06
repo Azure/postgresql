@@ -4,7 +4,7 @@ With the Azure PostgreSQL Action for GitHub, you can automate your workflow to d
 
 Get started today with a [free Azure account](https://azure.com/free/open-source)!
 
-This repository contains GitHub Action for [Azure database for PostgreSQL server](https://github.com/Azure/postgresql-action) to deploy . 
+This repository contains GitHub Action for [Azure Database for PostgreSQL server](https://github.com/Azure/postgresql-action) to deploy . 
 
 The action uses Connection String for authentication and PL/SQL scripts to deploy to your PostgreSQL database.
 
@@ -24,7 +24,7 @@ The definition of this Github Action is in [action.yml](https://github.com/Azure
 
 * Authenticate using [Azure Login](https://github.com/Azure/login)
 
-For the action to run, the IP Address of the GitHub Action runner (automation agent) must be added to the 'Allowed IP Addresses' by setting [PostgreSQL server firewall rules](https://docs.microsoft.com/en-us/azure/postgresql/howto-manage-firewall-using-portal) in Azure.  Without the firewall rules, the runner cannot communicate with Azure database for PostgreSQL.
+For the action to run, the IP Address of the GitHub Action runner (automation agent) must be added to the 'Allowed IP Addresses' by setting [PostgreSQL server firewall rules](https://docs.microsoft.com/en-us/azure/postgresql/howto-manage-firewall-using-portal) in Azure.  Without the firewall rules, the runner cannot communicate with Azure Database for PostgreSQL.
 
 By default, the action would auto-detect the IP Address of the runner to automatically add firewall exception rule. These firewall rules will be deleted after the action executes.
 
@@ -34,11 +34,11 @@ Alternatively, if enough permissions are not granted on the service principal or
 
 * Configuring firewall rules before running the action
 
-- If firewall rules are already added in Azure database for PostgreSQL, [Azure Login](https://github.com/Azure/login) action is not required in the workflow and postgresql-action will proceed to execute the SQL scripts.
+- If firewall rules are already added in Azure Database for PostgreSQL, [Azure Login](https://github.com/Azure/login) action is not required in the workflow and postgresql-action will proceed to execute the SQL scripts.
 - For Github hosted runners which are usually Azure VMs, users could handle the firewall rules by enabling the option on the PostgreSQL DB in Azure portal to allow any Azure VMs in the tenant to have access to the DB.
 - For self-hosted runners, firewall rules need to be explicitly managed by user using CLI/PS scripts.
 
-## Create an Azure database for PostgreSQL server and deploy using GitHub Actions
+## Create an Azure Database for PostgreSQL server and deploy using GitHub Actions
 1. Follow the tutorial [Azure Database for PostgreSQL server Quickstart](https://docs.microsoft.com/en-us/azure/postgresql/quickstart-create-server-database-portal)
 2. Copy the PostgreSQL-on-Azure.yml template from [starter templates](https://github.com/Azure/actions-workflow-samples/blob/master/Database/PostgreSQL-on-Azure.yml) and paste the template contents into `.github/workflows/` within your project repository as workflow.yml.
 3. Change `server-name` to your Azure PostgreSQL Server name.
@@ -73,7 +73,7 @@ psql "host={hostname} port={port} dbname={your_database} user={user} password={y
   
 ```
 
-### Sample workflow to deploy to an Azure database for PostgreSQL server using Azure Login
+### Sample workflow to deploy to an Azure Database for PostgreSQL server using Azure Login
 
 ```yaml
 on: [push]
@@ -94,7 +94,7 @@ jobs:
         plsql-file: "sql_files/*.sql"
 ```
 
-### Sample workflow to deploy to an Azure database for PostgreSQL server without Azure login - when firewall rules are pre-configured
+### Sample workflow to deploy to an Azure Database for PostgreSQL server without Azure login - when firewall rules are pre-configured
 
 ```yaml
 on: [push]
