@@ -1,6 +1,6 @@
 import { PsqlConstants } from "../../Constants";
-import { FirewallConstants } from "../../Constants";
 import PsqlToolRunner from "./PsqlToolRunner";
+import { HttpClient } from '@actions/http-client';
 
 export default class PsqlUtils {
     static async detectIPAddress(connectionString: string): Promise<string> {
@@ -18,17 +18,22 @@ export default class PsqlUtils {
         try {
             await PsqlToolRunner.init();
             await PsqlToolRunner.executePsqlCommand(connectionString, PsqlConstants.SELECT_1, options);
-        } catch(err) {
+        } catch {
             if (psqlError) {
-                const ipAddresses = psqlError.match(FirewallConstants.ipv4MatchPattern);
-                if (ipAddresses) {
-                    ipAddress = ipAddresses[0];
-                } else {
-                    throw new Error(`Unable to detect client IP Address: ${psqlError}`);
+                const http = new HttpClient();
+                try {
+                    const ipv4 = await http.getJson<IPResponse>('https://api.ipify.org?format=json');
+                    ipAddress = ipv4.result?.ip || '';
+                } catch(err) {
+                    throw new Error(`Unable to detect client IP Address: ${err.message}`);
                 }
             }
         }
         return ipAddress;
     }
 
+}
+
+export interface IPResponse {
+    ip: string;
 }
