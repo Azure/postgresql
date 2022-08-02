@@ -1,42 +1,35 @@
-import PsqlUtils from "../../Utils/PsqlUtils/PsqlUtils";
-import { FirewallConstants } from "../../Constants";
+import { HttpClient } from '@actions/http-client';
+import PsqlToolRunner from "../../Utils/PsqlUtils/PsqlToolRunner";
+import PsqlUtils, { IPResponse } from "../../Utils/PsqlUtils/PsqlUtils";
 
 jest.mock('../../Utils/PsqlUtils/PsqlToolRunner');
-const CONFIGURED = "configured";
+jest.mock('@actions/http-client');
 
 describe('Testing PsqlUtils', () => {
     afterEach(() => {
-        jest.clearAllMocks()
-    });
-
-    let detectIPAddressSpy: any;
-    beforeAll(() => {
-        detectIPAddressSpy = PsqlUtils.detectIPAddress = jest.fn().mockImplementation( (connString: string) => {
-            let psqlError;
-            if (connString != CONFIGURED) {
-                psqlError = `psql: error: could not connect to server: FATAL:  no pg_hba.conf entry for host "1.2.3.4", user "<user>", database "<db>"`;
-            }
-            let ipAddress = '';
-            if (psqlError) {
-                const ipAddresses = psqlError.match(FirewallConstants.ipv4MatchPattern);
-                if (ipAddresses) {
-                    ipAddress = ipAddresses[0];
-                } else {
-                    throw new Error(`Unable to detect client IP Address: ${psqlError}`);
-                }
-            }
-            return ipAddress;
-        });
+        jest.resetAllMocks();
     });
 
     test('detectIPAddress should return ip address', async () => {
-        await PsqlUtils.detectIPAddress("");
-        expect(detectIPAddressSpy).toReturnWith("1.2.3.4");
+        const psqlError: string = `psql: error: could not connect to server: FATAL:  no pg_hba.conf entry for host "1.2.3.4", user "<user>", database "<db>"`;
+    
+        jest.spyOn(PsqlToolRunner, 'executePsqlCommand').mockImplementation(async (_connectionString: string, _command: string, options: any = {}) => {
+            options.listeners.stderr(Buffer.from(psqlError));
+            throw new Error(psqlError);
+        });
+        jest.spyOn(HttpClient.prototype, 'getJson').mockResolvedValue({
+            statusCode: 200,
+            result: {
+                ip: '1.2.3.4',
+            },
+            headers: {},
+        });
+
+        return PsqlUtils.detectIPAddress("").then(ipAddress => expect(ipAddress).toEqual("1.2.3.4"));
     });
 
     test('detectIPAddress should return empty string', async () => {
-        await PsqlUtils.detectIPAddress(CONFIGURED);
-        expect(detectIPAddressSpy).toReturnWith("");
+        return PsqlUtils.detectIPAddress("").then(ipAddress => expect(ipAddress).toEqual(""));
     })
 
 });
