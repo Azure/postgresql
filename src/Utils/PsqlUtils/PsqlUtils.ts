@@ -14,10 +14,11 @@ export default class PsqlUtils {
             }, 
             silent: true
         };
+
         // "SELECT 1" psql command is run to check if psql client is able to connect to DB using the connectionString
         try {
             await PsqlToolRunner.init();
-            await PsqlToolRunner.executePsqlCommand(connectionString, PsqlConstants.SELECT_1, options);
+            await PsqlToolRunner.executePsqlCommand(`${connectionString} connect_timeout=10`, PsqlConstants.SELECT_1, options);
         } catch {
             if (psqlError) {
                 const http = new HttpClient();
@@ -31,7 +32,6 @@ export default class PsqlUtils {
         }
         return ipAddress;
     }
-
 }
 
 export interface IPResponse {
