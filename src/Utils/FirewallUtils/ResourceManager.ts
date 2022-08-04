@@ -61,33 +61,29 @@ export default class AzurePSQLResourceManager {
         return this._resource;
     }
 
-    private async _populatePSQLServerData(serverName: string) {
-        // trim the cloud hostname suffix from servername
-        serverName = serverName.split('.')[0];
+    private async _getPSQLServer(serverType: string, apiVersion: string, serverName: string) {
         const httpRequest: WebRequest = {
             method: 'GET',
-            uri: this._restClient.getRequestUri('//subscriptions/{subscriptionId}/providers/Microsoft.DBforPostgreSQL/servers', {}, [], '2017-12-01')
+            uri: this._restClient.getRequestUri(`//subscriptions/{subscriptionId}/providers/Microsoft.DBforPostgreSQL/${serverType}`, {}, [], apiVersion)
         }
 
-        core.debug(`Get PSQL server '${serverName}' details`);
+        core.debug(`Get '${serverName}' for PSQL ${serverType} details`);
         try {
             const httpResponse = await this._restClient.beginRequest(httpRequest);
             if (httpResponse.statusCode !== 200) {
                 throw ToError(httpResponse);
             }
 
-            const sqlServers = httpResponse.body && httpResponse.body.value as AzurePSQLServer[];
-            if (sqlServers && sqlServers.length > 0) {
-                this._resource = sqlServers.filter((sqlResource) => sqlResource.name.toLowerCase() === serverName.toLowerCase())[0];
-                if (!this._resource) {
-                    throw new Error(`Unable to get details of PSQL server ${serverName}. PSQL server '${serverName}' was not found in the subscription.`);
-                }
+            const sqlServers = ((httpResponse.body && httpResponse.body.value) || []) as AzurePSQLServer[];
+            const sqlServer = sqlServers.find((sqlResource) => sqlResource.name.toLowerCase() === serverName.toLowerCase());
+            if (sqlServer) {
+                this._serverType = serverType;
+                this._apiVersion = apiVersion;
+                this._resource = sqlServer;
+                return true;
+            }
 
-                core.debug(JSON.stringify(this._resource));
-            }
-            else {
-                throw new Error(`Unable to get details of PSQL server ${serverName}. No PSQL servers were found in the subscription.`);
-            }
+            return false;
         }
         catch(error) {
             if (error instanceof AzureError) {
@@ -98,11 +94,21 @@ export default class AzurePSQLResourceManager {
         }
     }
 
+    private async _populatePSQLServerData(serverName: string) {
+        // trim the cloud hostname suffix from servername
+        serverName = serverName.split('.')[0];
+
+        (await this._getPSQLServer('servers', '2017-12-01', serverName)) || (await this._getPSQLServer('flexibleServers', '2021-06-01', serverName));
+        if (!this._resource) {
+            throw new Error(`Unable to get details of PSQL server ${serverName}. PSQL server '${serverName}' was not found in the subscription.`);
+        }
+    }
+
     public async addFirewallRule(startIpAddress: string, endIpAddress: string): Promise<FirewallRule> {
         const firewallRuleName = `ClientIPAddress_${Date.now()}`;
         const httpRequest: WebRequest = {
             method: 'PUT',
-            uri: this._restClient.getRequestUri(`/${this._resource!.id}/firewallRules/${firewallRuleName}`, {}, [], '2017-12-01'),
+            uri: this._restClient.getRequestUri(`/${this._resource!.id}/firewallRules/${firewallRuleName}`, {}, [], this._apiVersion),
             body: JSON.stringify({
                 'properties': {
                     'startIpAddress': startIpAddress,
@@ -141,7 +147,7 @@ export default class AzurePSQLResourceManager {
     public async getFirewallRule(ruleName: string): Promise<FirewallRule> {
         const httpRequest: WebRequest = {
             method: 'GET',
-            uri: this._restClient.getRequestUri(`/${this._resource!.id}/firewallRules/${ruleName}`, {}, [], '2017-12-01')
+            uri: this._restClient.getRequestUri(`/${this._resource!.id}/firewallRules/${ruleName}`, {}, [], this._apiVersion)
         };
 
         try {
@@ -164,7 +170,7 @@ export default class AzurePSQLResourceManager {
     public async removeFirewallRule(firewallRule: FirewallRule): Promise<void> {
         const httpRequest: WebRequest = {
             method: 'DELETE',
-            uri: this._restClient.getRequestUri(`/${this._resource!.id}/firewallRules/${firewallRule.name}`, {}, [], '2017-12-01')
+            uri: this._restClient.getRequestUri(`/${this._resource!.id}/firewallRules/${firewallRule.name}`, {}, [], this._apiVersion)
         };
 
         try {
@@ -228,6 +234,8 @@ export default class AzurePSQLResourceManager {
         });
     }
 
+    private _serverType?: string;
+    private _apiVersion?: string;
     private _resource?: AzurePSQLServer;
     private _restClient: AzureRestClient;
 }
