@@ -24,7 +24,8 @@ export class ActionInputs {
     }
 
     private parseConnectionString() {
-        this._connectionString = this._connectionString.replace('psql', "").replace(/["]+/g, '').trim();
+        // Replace the "psql " part of the psql command copied from the Azure portal connection info
+        this._connectionString = this._connectionString.replace(/^psql\s/,'').replace(/["]+/g, '').trim();
         if (!this.validateConnectionString()) {
             throw new Error(`Please provide a valid connection string. A valid connection string is a series of keyword/value pairs separated by space. Spaces around the equal sign are optional. To write an empty value, or a value containing spaces, surround it with single quotes, e.g., keyword = 'a value'. Single quotes and backslashes within the value must be escaped with a backslash`);
         }
