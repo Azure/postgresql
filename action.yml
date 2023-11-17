@@ -15,5 +15,5 @@ inputs:
     description: 'Additional options supported by postgresql simple SQL shell. These options will be applied when executing the given file on the Azure DB for Postgresql. In case of multiple files, the same args will be applied for all files'
     required: false
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'lib/main.js'
