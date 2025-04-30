@@ -36,7 +36,10 @@ export default class PsqlFilesExecutor {
             console.log(`Executing file: ${file}`);
             await PsqlToolRunner.executePsqlFile(this.connectionString, file, this.args, options);
             if (error) {
-                throw new Error(`error in file: ${file}\n${error}`);
+                // Logging the error instead of throwing an exception to allow the process to continue.
+                // This is intentional to ensure all files are attempted for execution, even if some fail.
+                console.error(`error in file: ${file}\n${error}`);
+                error = "";
             }
         }
     }
