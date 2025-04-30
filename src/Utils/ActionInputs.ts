@@ -7,12 +7,14 @@ export class ActionInputs {
     private _connectionString: string;
     private _plsqlFile: string;
     private _args: string;
+    private _continueOnError: boolean;
 
     constructor() {
         this._serverName = core.getInput('server-name', { required: true });
         this._connectionString = core.getInput('connection-string', { required: true });
         this._plsqlFile = core.getInput('plsql-file', { required: true });
         this._args = core.getInput('arguments');
+        this._continueOnError = core.getInput('continue-on-error') === 'true' ? true : false;
         this.parseConnectionString();
     }
 
@@ -64,6 +66,10 @@ export class ActionInputs {
 
     public get serverName() {
         return this._serverName;
+    }
+
+    public get continueOnError() {
+        return this._continueOnError;
     }
 
 }

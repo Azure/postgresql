@@ -14,6 +14,10 @@ inputs:
   arguments:
     description: 'Additional options supported by postgresql simple SQL shell. These options will be applied when executing the given file on the Azure DB for Postgresql. In case of multiple files, the same args will be applied for all files'
     required: false
+  continue-on-error:
+    description: 'Continue on error. Default is false. If set to true, the action will not fail even if the SQL script execution fails.'
+    required: false
+    default: 'false'
 runs:
   using: 'node12'
   main: 'lib/main.js'

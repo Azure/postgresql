@@ -29,7 +29,7 @@ export async function run() {
             await firewallManager.addFirewallRule(runnerIPAddress);
         }
         console.log(`Executing sql files`);
-        const psqlFilesExecutor = PsqlFilesExecutor.getPsqlFilesExecutor(actionInputs.connectionString, actionInputs.plsqlFile, actionInputs.args)
+        const psqlFilesExecutor = PsqlFilesExecutor.getPsqlFilesExecutor(actionInputs.connectionString, actionInputs.plsqlFile, actionInputs.args, actionInputs.continueOnError);
         await psqlFilesExecutor.execute();
     }
     catch(error) {
